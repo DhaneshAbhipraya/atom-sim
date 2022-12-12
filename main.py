@@ -1,10 +1,9 @@
 from atom import Atom
 from constraint import Constraint
 import pygame as pg
-from math import atan2, degrees, dist, inf, pi
+from math import atan2, degrees
 from random import randint as r
 from threading import Thread
-from time import perf_counter
 
 
 def lerp(a: float, b: float, t: float):
