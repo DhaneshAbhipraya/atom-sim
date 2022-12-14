@@ -164,6 +164,7 @@ if __name__ == "__main__":
         atom.vel, i.vel = [x.vel.reflect(vangle) for x in [atom, i]]
         if not atom.static:
             atom.pos = atom.pos + vangle
+        if not i.static:
             i.pos = i.pos - vangle
         # try:
         #     cr=max(min((atom.vel*i.vel)/(ua*ub),1),0)
