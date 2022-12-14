@@ -4,6 +4,7 @@ import pygame as pg
 from math import atan2, degrees
 from random import randint as r
 from threading import Thread
+import primitives
 
 
 def lerp(a: float, b: float, t: float):
@@ -20,9 +21,18 @@ def main():
     fps = 75
     atoms: list[Atom] = []
     constraints: list[Constraint] = []
-    atoms.append(Atom(r=20))
-    atoms.append(Atom(r=20))
-    constraints.append(Constraint(*atoms))
+    # atoms.append(Atom(r=20))
+    # atoms.append(Atom(r=20))
+    # constraints.append(Constraint(*atoms))
+    primitives.line(15, atoms, constraints, 25)
+    # primitives.line(10, atoms, constraints, x=10)
+    # primitives.line(10, atoms, constraints, x=20)
+    # primitives.line(10, atoms, constraints, x=30)
+    atoms[0].static = True
+    atoms[0].pos.y = size[1] / 2
+    atoms[14].static = True
+    atoms[14].pos.x = size[0]
+    atoms[14].pos.y = size[1] / 2
 
     # for i in range(100):
     #     newAtom = Atom(pg.Vector2(r(0,size[0]),r(0,size[1])),charge=1.0)
@@ -64,6 +74,8 @@ def main():
                 f = pg.Vector2(pos)
                 heldatom.apply_force((f - heldatom.pos) * 10)  # type: ignore
                 heldatom.vel = pg.Vector2()  # type: ignore
+                if heldatom.static:  #type:ignore
+                    heldatom.pos = f  #type:ignore
                 # heldatom.pos=pg.Vector2(pos[0]+r(-1,1),pos[1]+r(-1,1))
                 pg.mouse.set_visible(False)
             else:
@@ -150,8 +162,9 @@ if __name__ == "__main__":
         # print(angle)
         # print(vangle)
         atom.vel, i.vel = [x.vel.reflect(vangle) for x in [atom, i]]
-        atom.pos = atom.pos + vangle
-        i.pos = i.pos - vangle
+        if not atom.static:
+            atom.pos = atom.pos + vangle
+            i.pos = i.pos - vangle
         # try:
         #     cr=max(min((atom.vel*i.vel)/(ua*ub),1),0)
         # except ZeroDivisionError:pass
