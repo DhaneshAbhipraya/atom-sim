@@ -42,3 +42,11 @@ class Atom:
 
     def __lt__(self, other):
         return other.life < self.life
+
+
+class StaticAtom(Atom):
+    def __init__(self,
+                 pos: Vector2 = Vector2(0, 0),
+                 r: float = 10,
+                 **custom_props: Any) -> None:
+        super().__init__(pos, r, True, **custom_props)
