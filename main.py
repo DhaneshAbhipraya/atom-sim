@@ -24,7 +24,7 @@ def main():
     # atoms.append(Atom(r=20))
     # atoms.append(Atom(r=20))
     # constraints.append(Constraint(*atoms))
-    primitives.line(15, atoms, constraints, 25)
+    primitives.line(15, atoms, constraints, 20)
     # primitives.line(10, atoms, constraints, x=10)
     # primitives.line(10, atoms, constraints, x=20)
     # primitives.line(10, atoms, constraints, x=30)
@@ -33,6 +33,8 @@ def main():
     atoms[14].static = True
     atoms[14].pos.x = size[0]
     atoms[14].pos.y = size[1] / 2
+    # for i in atoms:
+    #     i.can_collide = False
 
     # for i in range(100):
     #     newAtom = Atom(pg.Vector2(r(0,size[0]),r(0,size[1])),charge=1.0)

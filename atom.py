@@ -8,6 +8,7 @@ class Atom:
                  pos: Vector2 = Vector2(0, 0),
                  r: float = 10,
                  static: bool = False,
+                 can_collide: bool = True,
                  **custom_props: Any) -> None:
         self.pos = pos
         self.vel = Vector2()
@@ -15,6 +16,7 @@ class Atom:
         self.r = r
         self.m = r
         self.static = static
+        self.can_collide = can_collide
         self.custom_props = custom_props
         self.life: float = 0.0
 
@@ -38,7 +40,7 @@ class Atom:
             atom.pos) - (self.r + atom.r) * radius  #type:ignore
 
     def collideatom(self, atom: 'Atom'):
-        return self.distanceto(atom) < 0
+        return self.distanceto(atom) < 0 if self.can_collide else False
 
     def __lt__(self, other):
         return other.life < self.life
@@ -48,5 +50,6 @@ class StaticAtom(Atom):
     def __init__(self,
                  pos: Vector2 = Vector2(0, 0),
                  r: float = 10,
+                 can_collide: bool = True,
                  **custom_props: Any) -> None:
-        super().__init__(pos, r, True, **custom_props)
+        super().__init__(pos, r, True, can_collide, **custom_props)
